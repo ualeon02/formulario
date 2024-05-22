@@ -2,11 +2,31 @@ import React from 'react'
 import bgImg from '../assets/img2.jpg';
 import { useForm } from 'react-hook-form';
 
+//Funcion para enviar datos del formulario con Fetch
+const enviarDatos = async (data) => {
+    try {
+        const response = await fetch('https://url', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+        if (!response.ok) {
+            throw new Error('Error al enviar el formulario');
+        }
+        console.log('Formulario enviado con éxito');
+    } catch (error) {
+        console.error('Error al enviar el formulario:', error);
+    }
+}
+//Fin la funcion Fetch
 export default function Form() {
 
     const { register, handleSubmit, formState: { errors } } = useForm()
-    const onSubmit = data => console.log(data);
-    
+    //const onSubmit = data => console.log(data);
+    const onSubmit = data => enviarDatos(data);
+
   return (
     <section>
         <div className="register">
